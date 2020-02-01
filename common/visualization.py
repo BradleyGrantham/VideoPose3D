@@ -31,7 +31,7 @@ def get_fps(filename):
             return int(a) / int(b)
 
 def read_video(filename, skip=0, limit=-1):
-    w, h = get_resolution(filename)
+    h, w = get_resolution(filename)
     
     command = ['ffmpeg',
             '-i', filename,
