@@ -18,11 +18,11 @@ def get_resolution(filename):
                '-show_entries', 'stream=width,height', '-of', 'csv=p=0', filename]
     pipe = sp.Popen(command, stdout=sp.PIPE, bufsize=-1)
     for line in pipe.stdout:
-        w, h = line.decode().strip().split(',')
+        h, w = line.decode().strip().split(',')
         return int(w), int(h)
 
 def read_video(filename):
-    w, h = get_resolution(filename)
+    h, w = get_resolution(filename)
 
     command = ['ffmpeg',
             '-i', filename,

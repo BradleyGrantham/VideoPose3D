@@ -19,8 +19,8 @@ def get_resolution(filename):
                '-show_entries', 'stream=width,height', '-of', 'csv=p=0', filename]
     with sp.Popen(command, stdout=sp.PIPE, bufsize=-1) as pipe:
         for line in pipe.stdout:
-            w, h = line.decode().strip().split(',')
-            return int(w), int(h)
+            h, w = line.decode().strip().split(',')
+            return int(h), int(w)
             
 def get_fps(filename):
     command = ['ffprobe', '-v', 'error', '-select_streams', 'v:0',
@@ -41,9 +41,9 @@ def read_video(filename, skip=0, limit=-1):
             '-vcodec', 'rawvideo', '-']
     
     i = 0
-    with sp.Popen(command, stdout = sp.PIPE, bufsize=-1) as pipe:
+    with sp.Popen(command, stdout=sp.PIPE, bufsize=-1) as pipe:
         while True:
-            data = pipe.stdout.read(w*h*3)
+            data = pipe.stdout.read(w * h * 3)
             if not data:
                 break
             i += 1
