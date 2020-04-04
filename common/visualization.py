@@ -111,20 +111,12 @@ def render_animation(keypoints, keypoints_metadata, poses, skeleton, fps, bitrat
         effective_length = min(keypoints.shape[0], len(all_frames))
         all_frames = all_frames[:effective_length]
         
-        keypoints = keypoints[input_video_skip:] # todo remove
+        keypoints = keypoints[input_video_skip:]  # todo remove
         for idx in range(len(poses)):
             poses[idx] = poses[idx][input_video_skip:]
         
         if fps is None:
             fps = get_fps(input_video_path)
-    
-    if downsample > 1:
-        keypoints = downsample_tensor(keypoints, downsample)
-        all_frames = downsample_tensor(np.array(all_frames), downsample).astype('uint8')
-        for idx in range(len(poses)):
-            poses[idx] = downsample_tensor(poses[idx], downsample)
-            trajectories[idx] = downsample_tensor(trajectories[idx], downsample)
-        fps /= downsample
 
     initialized = False
     image = None
